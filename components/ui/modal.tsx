@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { ReactNode, useCallback, useLayoutEffect, useRef } from "react";
 import { X } from "lucide-react";
 
@@ -108,24 +107,20 @@ export function Modal({
     [onClose]
   );
 
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
         <>
           {/* Backdrop - separate element, always behind the panel */}
-          <motion.div
+          <div
             className="fixed inset-0 z-[100] bg-bg/80 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
             onClick={onClose}
           />
 
           {/* The panel remains centred inside the viewport. Its body scrolls
               independently, keeping the header and both viewport insets visible. */}
           <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
-              <motion.div
+              <div
                 ref={panelRef}
                 data-lenis-prevent
                 role="dialog"
@@ -135,10 +130,6 @@ export function Modal({
                 onClick={(e) => e.stopPropagation()}
                 onWheel={(e) => e.stopPropagation()}
                 onClickCapture={handleAnchorClick}
-                initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 14, scale: 0.98 }}
-                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                 className="pointer-events-auto flex max-h-[calc(100svh-2rem)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] sm:max-h-[calc(100svh-3rem)]"
               >
                 {/* Header */}
@@ -163,10 +154,8 @@ export function Modal({
                 >
                   {children}
                 </div>
-              </motion.div>
+              </div>
           </div>
         </>
-      )}
-    </AnimatePresence>
   );
 }

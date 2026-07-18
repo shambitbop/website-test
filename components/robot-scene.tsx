@@ -68,6 +68,32 @@ export function RobotScene({ className }: { className?: string }) {
       setAllowed(false);
       return;
     }
+
+    let timerId = 0;
+    let idleId = 0;
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const loadRobot = () => setShouldLoad(true);
+    const scheduleRobot = () => {
+      timerId = window.setTimeout(() => {
+        if (idleWindow.requestIdleCallback) {
+          idleId = idleWindow.requestIdleCallback(loadRobot, { timeout: 4000 });
+        } else {
+          loadRobot();
+        }
+      }, 2500);
+    };
+
+    if (document.readyState === "complete") scheduleRobot();
+    else window.addEventListener("load", scheduleRobot, { once: true });
+
+    return () => {
+      window.removeEventListener("load", scheduleRobot);
+      window.clearTimeout(timerId);
+      if (idleId) idleWindow.cancelIdleCallback?.(idleId);
+    };
   }, []);
 
   return (
@@ -94,17 +120,6 @@ export function RobotScene({ className }: { className?: string }) {
               />
             </div>
           </Suspense>
-        )}
-
-        {allowed && !shouldLoad && (
-          <button
-            type="button"
-            onClick={() => setShouldLoad(true)}
-            className="absolute bottom-5 left-1/2 z-30 -translate-x-1/2 whitespace-nowrap rounded-full border border-accent/45 bg-bg/80 px-4 py-2 font-mono text-[11px] text-accent backdrop-blur transition-colors hover:border-accent hover:bg-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            aria-label="Load the interactive 3D robot"
-          >
-            Load interactive robot
-          </button>
         )}
 
         {/* mask over the "Built with Spline" watermark - the badge is painted on

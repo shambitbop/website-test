@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -11,7 +10,6 @@ import { cn } from "@/lib/utils";
  */
 export const TextHoverEffect = ({
   text,
-  duration,
   className,
 }: {
   text: string;
@@ -57,17 +55,16 @@ export const TextHoverEffect = ({
           )}
         </linearGradient>
 
-        <motion.radialGradient
+        <radialGradient
           id="dcr-revealMask"
           gradientUnits="userSpaceOnUse"
           r="20%"
-          initial={{ cx: "50%", cy: "50%" }}
-          animate={maskPosition}
-          transition={{ duration: duration ?? 0, ease: "easeOut" }}
+          cx={maskPosition.cx}
+          cy={maskPosition.cy}
         >
           <stop offset="0%" stopColor="white" />
           <stop offset="100%" stopColor="black" />
-        </motion.radialGradient>
+        </radialGradient>
         <mask id="dcr-textMask">
           <rect x="0" y="0" width="100%" height="100%" fill="url(#dcr-revealMask)" />
         </mask>
@@ -85,7 +82,7 @@ export const TextHoverEffect = ({
         {text}
       </text>
 
-      <motion.text
+      <text
         x="50%"
         y="50%"
         textAnchor="middle"
@@ -93,12 +90,10 @@ export const TextHoverEffect = ({
         strokeWidth="0.48"
         className="fill-transparent text-7xl font-bold"
         style={{ stroke: "color-mix(in oklab, var(--accent) 78%, transparent)", fontFamily: "var(--font-display)" }}
-        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-        animate={{ strokeDashoffset: 0, strokeDasharray: 1000 }}
-        transition={{ duration: 4, ease: "easeInOut" }}
+        strokeDasharray="1000"
       >
         {text}
-      </motion.text>
+      </text>
 
       <text
         x="50%"

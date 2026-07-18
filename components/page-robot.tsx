@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -13,7 +12,6 @@ const INACTIVITY_DELAY = 5_000;
  * Dismissible. Reduced motion: no hover scale, eyes stay centred.
  */
 export function PageRobot() {
-  const reduce = useReducedMotion();
   const pathname = usePathname();
   const [dismissed, setDismissed] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -62,7 +60,7 @@ export function PageRobot() {
   }, []);
 
   useEffect(() => {
-    if (reduce) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const onMove = (e: MouseEvent) => {
       const el = containerRef.current;
       if (!el) return;
@@ -80,40 +78,38 @@ export function PageRobot() {
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
-  }, [reduce]);
+  }, []);
 
   if (dismissed) return null;
 
   const visible = active && !(pathname === "/" && aboveFold);
 
   return (
-    <motion.div
+    <div
       ref={containerRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      initial={false}
-      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12 }}
-      transition={{ duration: reduce ? 0 : 0.2 }}
       aria-hidden={!visible}
       inert={!visible}
-      className="fixed bottom-6 right-6 z-40 select-none"
-      style={{ pointerEvents: visible ? "auto" : "none" }}
+      className="fixed bottom-6 right-6 z-40 select-none transition-[opacity,transform] duration-200 motion-reduce:transition-none"
+      style={{
+        pointerEvents: visible ? "auto" : "none",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(12px)",
+      }}
     >
       {/* Speech bubble - full anchor, clickable, shares the parent's hover zone
           so moving the cursor from the robot up into the bubble never drops
           the hover state (the old per-element onHoverStart/End caused that). */}
-      <motion.a
+      <a
         href="/about-contact#start"
         aria-label="Get a free quote"
-        initial={false}
-        animate={{
+        style={{
           opacity: hovered ? 1 : 0,
-          y: hovered ? 0 : 8,
-          scale: hovered ? 1 : 0.9,
+          transform: hovered ? "translateY(0) scale(1)" : "translateY(8px) scale(.9)",
           pointerEvents: hovered ? "auto" : "none",
         }}
-        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-full right-0 mb-3 block w-52 rounded-xl border border-accent/40 bg-surface px-4 py-3 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)] transition-colors hover:border-accent/70"
+        className="absolute bottom-full right-0 mb-3 block w-52 rounded-xl border border-accent/40 bg-surface px-4 py-3 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)] transition-[opacity,transform,border-color] duration-200 hover:border-accent/70 motion-reduce:transition-none"
       >
         <p className="font-mono text-[12px] leading-snug text-text">
           Click me to get a{" "}
@@ -126,16 +122,15 @@ export function PageRobot() {
           aria-hidden
           className="absolute -bottom-[5px] right-5 h-2.5 w-2.5 rotate-45 border-b border-r border-accent/40 bg-surface"
         />
-      </motion.a>
+      </a>
 
       {/* Robot - also a real link to the contact form, so clicking the robot itself
           (not just the bubble) takes the user to the contact form. */}
-      <motion.a
+      <a
         href="/about-contact#start"
         aria-label="Get a free quote"
-        animate={reduce ? {} : { scale: hovered ? 1.07 : 1 }}
-        transition={{ type: "spring", stiffness: 280, damping: 18 }}
-        className="relative block cursor-pointer"
+        style={{ transform: hovered ? "scale(1.07)" : "scale(1)" }}
+        className="relative block cursor-pointer transition-transform duration-200 motion-reduce:transform-none motion-reduce:transition-none"
       >
         {/* Dismiss */}
         <button
@@ -218,7 +213,7 @@ export function PageRobot() {
           <line x1="18" y1="67" x2="27" y2="67" stroke="var(--line)" strokeWidth="1" strokeLinecap="round" />
           <line x1="37" y1="67" x2="46" y2="67" stroke="var(--line)" strokeWidth="1" strokeLinecap="round" />
         </svg>
-      </motion.a>
-    </motion.div>
+      </a>
+    </div>
   );
 }

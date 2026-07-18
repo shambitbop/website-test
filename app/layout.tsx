@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { clashDisplay, geistMono, geistSans } from "./fonts";
+import { clashDisplay } from "./fonts";
 import { AmbientBackground } from "@/components/ambient-background";
 import { StructuredData } from "@/components/structured-data";
 import { PageRobot } from "@/components/page-robot";
@@ -64,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${clashDisplay.variable}`}
+      className={`dark ${clashDisplay.variable}`}
       suppressHydrationWarning
     >
       <body>

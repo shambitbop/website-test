@@ -1,19 +1,7 @@
-"use client";
-
-import { motion } from "motion/react";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Container } from "./primitives";
 import { DecryptText } from "./decrypt-text";
 import { RobotScene } from "./robot-scene";
-
-const fade = {
-  hidden: { opacity: 0, y: 14 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const, delay: 0.15 + i * 0.08 },
-  }),
-};
 
 const MICRO = [
   "AI software",
@@ -36,17 +24,13 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
           {/* left column */}
           <div className="relative z-10">
-            <motion.div
-              custom={0}
-              variants={fade}
-              initial="hidden"
-              animate="show"
+            <div
               className="hero-entry mb-7 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3.5 py-1.5"
             >
               <span className="kicker !tracking-[0.18em]">
                 <span className="text-accent">{"//"}</span> Decrypt AI Technologies
               </span>
-            </motion.div>
+            </div>
 
             <h1 className="font-display text-[clamp(2.6rem,7vw,5.4rem)]">
               <DecryptText
@@ -66,24 +50,16 @@ export function Hero() {
               />
             </h1>
 
-            <motion.p
-              custom={3}
-              variants={fade}
-              initial="hidden"
-              animate="show"
+            <p
               className="hero-entry mt-7 max-w-xl text-[clamp(1rem,1.5vw,1.18rem)] leading-relaxed text-muted"
             >
               Your business should not be forced to work around disconnected tools, scattered
               spreadsheets, and manual processes. Decrypt AI Technologies turns messy workflows
               into governed AI systems, custom software, dashboards, automation, websites, apps,
               chatbots, voice agents, and business systems your team can actually use.
-            </motion.p>
+            </p>
 
-            <motion.div
-              custom={4}
-              variants={fade}
-              initial="hidden"
-              animate="show"
+            <div
               className="hero-entry mt-9 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center"
             >
               <a
@@ -111,13 +87,9 @@ export function Hero() {
                   aria-hidden
                 />
               </a>
-            </motion.div>
+            </div>
 
-            <motion.ul
-              custom={5}
-              variants={fade}
-              initial="hidden"
-              animate="show"
+            <ul
               className="hero-entry mt-8 grid gap-2 sm:flex sm:flex-wrap sm:gap-x-7 sm:gap-y-2"
             >
               {MICRO.slice(0, 3).map((m) => (
@@ -125,14 +97,11 @@ export function Hero() {
                   <span className="text-accent">{"//"}</span> {m}
                 </li>
               ))}
-            </motion.ul>
+            </ul>
           </div>
 
           {/* right column: robot panel */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          <div
             className="hero-entry hero-robot-panel relative mx-auto w-full max-w-xl lg:max-w-none"
           >
             <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-line bg-[#070710] [background-image:radial-gradient(120%_90%_at_50%_0%,#171432_0%,#070710_60%)] md:aspect-[4/5] lg:aspect-square">
@@ -147,15 +116,12 @@ export function Hero() {
               <CornerTicks />
               <RobotScene className="absolute inset-0" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
 
       {/* Bottom tag strip - scrolling marquee of all capability tags */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
+      <div
         className="hero-entry relative mt-14 border-y border-line overflow-hidden"
       >
         <div
@@ -173,7 +139,7 @@ export function Hero() {
             </span>
           ))}
         </div>
-      </motion.div>
+      </div>
 
     </section>
   );

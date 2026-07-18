@@ -19,8 +19,8 @@
   --ink-accent: 54, 245, 163;
 
   --font-display: var(--font-clash), "Space Grotesk", system-ui, sans-serif;
-  --font-body: var(--font-geist-sans), "Inter", system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-body: "Segoe UI", Inter, system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

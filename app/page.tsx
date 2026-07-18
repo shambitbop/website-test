@@ -4,10 +4,12 @@ import { WhatWeDo } from "@/components/sections/what-we-do";
 import { WorkflowIntelligence } from "@/components/sections/workflow-intelligence";
 import { CompactProjectCta } from "@/components/sections/compact-project-cta";
 import { HowWeWork } from "@/components/sections/how-we-work";
-import { CaseStudies } from "@/components/sections/case-studies";
 import { TrustSystems } from "@/components/sections/trust-systems";
-import { Pricing } from "@/components/sections/pricing";
-import { ContactForm } from "@/components/sections/contact-form";
+import {
+  DeferredHomeCaseStudies,
+  DeferredHomeContact,
+  DeferredHomePricing,
+} from "@/components/deferred-home-sections";
 import { Faq } from "@/components/sections/faq";
 import { HomeCta } from "@/components/sections/home-cta";
 import { SiteFooter } from "@/components/site-footer";
@@ -23,9 +25,9 @@ export default function Home() {
         <CompactProjectCta />
         <HowWeWork />
         <TrustSystems />
-        <CaseStudies linkCardsToPage />
-        <Pricing linkCardsToPage />
-        <ContactForm showAboutSummary />
+        <DeferredHomeCaseStudies />
+        <DeferredHomePricing />
+        <DeferredHomeContact />
         <Faq />
         <HomeCta />
       </main>
