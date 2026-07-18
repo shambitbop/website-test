@@ -1,0 +1,172 @@
+"use client";
+
+import { AnimatePresence, motion } from "motion/react";
+import { ReactNode, useCallback, useLayoutEffect, useRef } from "react";
+import { X } from "lucide-react";
+
+export function Modal({
+  open,
+  onClose,
+  children,
+  labelledBy,
+  headerLabel = "decrypt - file",
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  labelledBy: string;
+  headerLabel?: string;
+}) {
+  const scrollYRef = useRef(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  useLayoutEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    scrollYRef.current = window.scrollY;
+    const body = document.body;
+    const root = document.documentElement;
+    const previousBodyStyles = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+    };
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollYRef.current}px`;
+    body.style.width = "100%";
+    panelRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+
+      const scrollArea = scrollRef.current;
+      if (!scrollArea) return;
+      const target = e.target as HTMLElement | null;
+      const isEditable = target?.matches("input, textarea, select, [contenteditable='true']");
+      if (isEditable) return;
+
+      const page = Math.max(180, scrollArea.clientHeight * 0.82);
+      const distances: Partial<Record<string, number>> = {
+        ArrowDown: 48,
+        ArrowUp: -48,
+        PageDown: page,
+        PageUp: -page,
+        " ": e.shiftKey ? -page : page,
+      };
+
+      if (e.key === "Home") {
+        e.preventDefault();
+        scrollArea.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (e.key === "End") {
+        e.preventDefault();
+        scrollArea.scrollTo({ top: scrollArea.scrollHeight, behavior: "smooth" });
+      } else if (distances[e.key] !== undefined) {
+        e.preventDefault();
+        scrollArea.scrollBy({ top: distances[e.key], behavior: "smooth" });
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      // Disable the global smooth-scroll rule while restoring the locked page.
+      // This keeps the background visually stationary during modal teardown.
+      root.style.scrollBehavior = "auto";
+      body.style.overflow = previousBodyStyles.overflow;
+      body.style.position = previousBodyStyles.position;
+      body.style.top = previousBodyStyles.top;
+      body.style.width = previousBodyStyles.width;
+      window.scrollTo(0, scrollYRef.current);
+      root.style.scrollBehavior = previousScrollBehavior;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const handleAnchorClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>(
+        "a[href^='#']"
+      );
+      if (!anchor) return;
+      e.preventDefault();
+      const id = anchor.getAttribute("href");
+      onClose();
+      window.setTimeout(() => {
+        const el = id ? document.querySelector(id) : null;
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 320);
+    },
+    [onClose]
+  );
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop - separate element, always behind the panel */}
+          <motion.div
+            className="fixed inset-0 z-[100] bg-bg/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            onClick={onClose}
+          />
+
+          {/* The panel remains centred inside the viewport. Its body scrolls
+              independently, keeping the header and both viewport insets visible. */}
+          <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
+              <motion.div
+                ref={panelRef}
+                data-lenis-prevent
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={labelledBy}
+                tabIndex={-1}
+                onClick={(e) => e.stopPropagation()}
+                onWheel={(e) => e.stopPropagation()}
+                onClickCapture={handleAnchorClick}
+                initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 14, scale: 0.98 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="pointer-events-auto flex max-h-[calc(100svh-2rem)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] sm:max-h-[calc(100svh-3rem)]"
+              >
+                {/* Header */}
+                <div className="z-20 flex shrink-0 items-center justify-between border-b border-line bg-surface/95 px-5 py-3 backdrop-blur-xl sm:px-7">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                    {headerLabel}
+                  </span>
+                  <button
+                    onClick={onClose}
+                    aria-label="Close"
+                    data-cursor="lock"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface-2 text-muted transition-colors hover:border-accent/50 hover:text-text"
+                  >
+                    <X size={15} strokeWidth={2} aria-hidden />
+                  </button>
+                </div>
+
+                <div
+                  ref={scrollRef}
+                  data-lenis-prevent
+                  className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain"
+                >
+                  {children}
+                </div>
+              </motion.div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
