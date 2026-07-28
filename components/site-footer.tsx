@@ -56,10 +56,10 @@ export function SiteFooter() {
                 </a>
                 <a
                   href="/about-contact#start"
-                  data-simple-contact="Get a Free Workflow Review"
+                  data-simple-contact="Tell Us About Your Project"
                   className="group inline-flex items-center justify-center gap-2 rounded-full border border-accent bg-accent px-5 py-2.5 font-mono text-[13px] font-semibold text-bg shadow-[0_10px_30px_-14px_var(--accent)] transition-[filter,box-shadow] hover:brightness-110 hover:shadow-[0_12px_34px_-12px_var(--accent)]"
                 >
-                  Get a Free Workflow Review
+                  Tell Us About Your Project
                   <span className="text-bg transition-transform duration-300 group-hover:translate-x-0.5">
                     {"->"}
                   </span>

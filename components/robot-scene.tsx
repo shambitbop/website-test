@@ -11,10 +11,10 @@ const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splin
 function RobotPoster({ label = "decoder" }: { label?: string }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="relative">
+      <div className="relative h-[72%] w-[72%] max-h-80 max-w-80">
         <svg
           viewBox="0 0 240 240"
-          className="h-[58%] w-auto opacity-90"
+          className="h-full w-full opacity-90"
           fill="none"
           aria-hidden="true"
         >
@@ -69,31 +69,9 @@ export function RobotScene({ className }: { className?: string }) {
       return;
     }
 
-    let timerId = 0;
-    let idleId = 0;
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    const loadRobot = () => setShouldLoad(true);
-    const scheduleRobot = () => {
-      timerId = window.setTimeout(() => {
-        if (idleWindow.requestIdleCallback) {
-          idleId = idleWindow.requestIdleCallback(loadRobot, { timeout: 4000 });
-        } else {
-          loadRobot();
-        }
-      }, 2500);
-    };
-
-    if (document.readyState === "complete") scheduleRobot();
-    else window.addEventListener("load", scheduleRobot, { once: true });
-
-    return () => {
-      window.removeEventListener("load", scheduleRobot);
-      window.clearTimeout(timerId);
-      if (idleId) idleWindow.cancelIdleCallback?.(idleId);
-    };
+    // The WebGL runtime and scene are deliberately user-initiated. Automatically
+    // downloading them after load makes the page jank just as a visitor starts
+    // reading, especially on mid-range laptops and constrained connections.
   }, []);
 
   return (
@@ -120,6 +98,17 @@ export function RobotScene({ className }: { className?: string }) {
               />
             </div>
           </Suspense>
+        )}
+
+        {allowed && !shouldLoad && (
+          <button
+            type="button"
+            onClick={() => setShouldLoad(true)}
+            className="absolute bottom-4 left-1/2 z-30 -translate-x-1/2 whitespace-nowrap rounded-full border border-accent/40 bg-bg/90 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-text transition-colors hover:border-accent hover:text-accent"
+            aria-label="Load interactive 3D robot"
+          >
+            Explore in 3D
+          </button>
         )}
 
         {/* mask over the "Built with Spline" watermark - the badge is painted on

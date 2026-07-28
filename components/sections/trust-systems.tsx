@@ -85,10 +85,10 @@ export function AiGovernancePanel({ showCta = true }: { showCta?: boolean }) {
             {showCta && (
               <Link
                 href="/about-contact#start"
-                data-simple-contact="Review My AI Workflow"
+                data-simple-contact="Discuss Your AI Project"
                 className="group inline-flex items-center justify-center gap-2 rounded-full border border-accent bg-accent px-6 py-3.5 font-mono text-[14px] font-semibold text-bg shadow-[0_12px_34px_-14px_var(--accent)] transition-[filter,box-shadow] hover:brightness-110 hover:shadow-[0_14px_38px_-12px_var(--accent)]"
               >
-                Review My AI Workflow
+                Discuss Your AI Project
                 <ArrowRight
                   size={16}
                   className="transition-transform group-hover:translate-x-1"

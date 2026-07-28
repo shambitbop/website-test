@@ -9,7 +9,7 @@ const DeferredPricing = lazy(() =>
   import("./sections/pricing").then((module) => ({ default: module.Pricing })),
 );
 const DeferredContactForm = lazy(() =>
-  import("./sections/contact-form").then((module) => ({ default: module.ContactForm })),
+  import("./sections/inline-contact-form").then((module) => ({ default: module.InlineContactForm })),
 );
 
 function WhenNear({ children, minHeight }: { children: ReactNode; minHeight: number }) {

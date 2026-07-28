@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/site-nav";
 import { PageHero } from "@/components/page-hero";
 import { About } from "@/components/sections/about";
-import { ContactForm } from "@/components/sections/contact-form";
+import { InlineContactForm } from "@/components/sections/inline-contact-form";
 import { SiteFooter } from "@/components/site-footer";
 import { PageFaq } from "@/components/sections/page-faq";
 import { ABOUT_CONTACT_FAQ } from "@/lib/page-faqs";
@@ -116,13 +116,13 @@ export default function AboutContactPage() {
           ctas={[
             { label: "Send My Project Brief", href: "#start" },
             { label: "Book a Discovery Call", href: "#start" },
-            { label: "Request a Free AI Workflow Review", href: "#start" },
+            { label: "Tell Us About Your Project", href: "#start" },
           ]}
           visual="about"
         />
         <About />
         <AboutPageDetails />
-        <ContactForm showAboutSummary />
+        <InlineContactForm showAboutSummary />
         <PageFaq
           kicker="CONTACT FAQ"
           title="Questions before sending your project brief."

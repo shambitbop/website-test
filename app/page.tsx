@@ -5,6 +5,7 @@ import { WorkflowIntelligence } from "@/components/sections/workflow-intelligenc
 import { CompactProjectCta } from "@/components/sections/compact-project-cta";
 import { HowWeWork } from "@/components/sections/how-we-work";
 import { TrustSystems } from "@/components/sections/trust-systems";
+import { ProofAndTestimonials } from "@/components/sections/proof-and-testimonials";
 import {
   DeferredHomeCaseStudies,
   DeferredHomeContact,
@@ -25,6 +26,7 @@ export default function Home() {
         <CompactProjectCta />
         <HowWeWork />
         <TrustSystems />
+        <ProofAndTestimonials />
         <DeferredHomeCaseStudies />
         <DeferredHomePricing />
         <DeferredHomeContact />

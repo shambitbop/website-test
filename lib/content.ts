@@ -540,7 +540,7 @@ export const FOOTER_COLUMNS = [
     title: "Start",
     links: [
       { label: "Pricing", href: "/pricing" },
-      { label: "Free workflow review", href: "/about-contact#start" },
+      { label: "Start a project", href: "/about-contact#start" },
       { label: "Careers", href: "/careers" },
     ],
   },

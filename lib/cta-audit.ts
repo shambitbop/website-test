@@ -15,6 +15,9 @@ const QUICK_FORM_LABELS = new Set([
   "Send My Workflow",
   "Start a Conversation",
   "Start a similar project",
+  "Start a Project",
+  "Tell Us About Your Project",
+  "Discuss Your AI Project",
 ]);
 
 const SECTION_TARGETS: Record<string, string> = {

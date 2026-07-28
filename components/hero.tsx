@@ -64,11 +64,11 @@ export function Hero() {
             >
               <a
                 href="/about-contact#start"
-                data-simple-contact="Get a Free Workflow Review"
+                data-simple-contact="Tell Us About Your Project"
                 data-cursor="lock"
                 className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-center font-mono text-[13px] font-medium text-bg shadow-[0_8px_24px_-10px_color-mix(in_oklab,var(--accent)_70%,transparent)] transition-[filter,box-shadow] duration-300 hover:brightness-110 sm:px-6 sm:text-[14px]"
               >
-                Get a Free Workflow Review
+                Tell Us About Your Project
                 <ArrowRight
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -109,7 +109,7 @@ export function Hero() {
               <div className="absolute left-3 top-3 z-20 inline-flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-full border border-line bg-bg/70 px-3 py-1.5 backdrop-blur sm:left-4 sm:top-4 sm:max-w-none">
                 <span className="status-dot h-2 w-2 rounded-full bg-accent" />
                 <span className="truncate font-mono text-[11px] tracking-wide text-text sm:text-[12px]">
-                  workflow review online
+                  project planning online
                 </span>
               </div>
               {/* corner ticks */}

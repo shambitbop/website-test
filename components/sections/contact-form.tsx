@@ -47,7 +47,13 @@ const CONTACT_STEPS = [
   { number: "04", label: "We shape the build", value: "If there is a fit, the workflow becomes a plan your team can review and control." },
 ] as const;
 
-export function ContactForm({ showAboutSummary = false }: { showAboutSummary?: boolean }) {
+export function ContactForm({
+  showAboutSummary = false,
+  modal = false,
+}: {
+  showAboutSummary?: boolean;
+  modal?: boolean;
+}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -182,11 +188,11 @@ export function ContactForm({ showAboutSummary = false }: { showAboutSummary?: b
   };
 
   return (
-    <Section id="start" className="border-t border-line">
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+    <Section id={modal ? undefined : "start"} className={modal ? "!py-0" : "border-t border-line"}>
+      <Container className={modal ? "!max-w-none !px-0" : undefined}>
+        <div className={modal ? "block" : "grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"}>
           {/* left: pitch */}
-          <div className={showAboutSummary ? "lg:sticky lg:top-24 lg:self-start" : undefined}>
+          <div className={modal ? "hidden" : showAboutSummary ? "lg:sticky lg:top-24 lg:self-start" : undefined}>
             <Reveal>
               <Kicker>START HERE</Kicker>
             </Reveal>
@@ -324,7 +330,7 @@ export function ContactForm({ showAboutSummary = false }: { showAboutSummary?: b
 
           {/* right: form / confirmation */}
           <div>
-            <div className="rounded-2xl border border-line bg-surface/40 p-6 sm:p-8">
+            <div className={modal ? "bg-surface/40 p-5 sm:p-8" : "rounded-2xl border border-line bg-surface/40 p-6 sm:p-8"}>
               {status === "sent" ? (
                 <Confirmation />
               ) : (

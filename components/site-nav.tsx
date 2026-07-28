@@ -41,6 +41,7 @@ export function SiteNav() {
         {/* logo */}
         <Link
           href="/"
+          prefetch={false}
           onClick={(event) => handleSamePageClick(event, "/")}
           aria-label="Decrypt home"
           className={cn(
@@ -72,6 +73,7 @@ export function SiteNav() {
             <Link
               key={href}
               href={href}
+              prefetch={false}
               onClick={(event) => handleSamePageClick(event, href)}
               className={cn(
                 "inline-flex items-center rounded-full border border-transparent px-2.5 py-1.5 font-mono font-medium text-text/90 transition-all duration-300 hover:border-accent/35 hover:bg-accent/[0.1] hover:text-accent",
@@ -90,8 +92,9 @@ export function SiteNav() {
           {scrolled && <span className="mx-1 h-5 w-px bg-line" />}
           <Link
             href="/about-contact#start"
-            data-simple-contact="Get a Free Workflow Review"
-            aria-label="Get a free workflow review"
+            prefetch={false}
+            data-simple-contact="Start a Project"
+            aria-label="Start a project"
             className={cn(
               "group inline-flex items-center justify-center gap-1.5 rounded-full bg-accent font-mono font-medium text-bg transition-[filter] duration-300 hover:brightness-110",
               scrolled
@@ -101,16 +104,16 @@ export function SiteNav() {
           >
             {scrolled ? (
               <>
-                <span className="xl:hidden">Free review</span>
-                <span className="hidden xl:inline">Free workflow review</span>
+                <span className="xl:hidden">Start project</span>
+                <span className="hidden xl:inline">Start a project</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">
                   {"->"}
                 </span>
               </>
             ) : (
               <>
-                <span className="lg:hidden">Free review</span>
-                <span className="hidden lg:inline">Free workflow review</span>
+                <span className="lg:hidden">Start project</span>
+                <span className="hidden lg:inline">Start a project</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">
                   {"->"}
                 </span>
@@ -141,6 +144,7 @@ export function SiteNav() {
               <Link
                 key={href}
                 href={href}
+                prefetch={false}
                 onClick={(event) => {
                   handleSamePageClick(event, href);
                   setMobileOpen(false);

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { clashDisplay } from "./fonts";
 import { AmbientBackground } from "@/components/ambient-background";
 import { StructuredData } from "@/components/structured-data";
-import { PageRobot } from "@/components/page-robot";
+import { DeferredPageRobot } from "@/components/deferred-page-robot";
 import { SimpleContactFormProvider } from "@/components/simple-contact-form";
 import { BackToTop } from "@/components/back-to-top";
 import "./globals.css";
@@ -73,7 +73,7 @@ export default function RootLayout({
           <StructuredData />
           {children}
           <BackToTop />
-          <PageRobot />
+          <DeferredPageRobot />
         </SimpleContactFormProvider>
       </body>
     </html>

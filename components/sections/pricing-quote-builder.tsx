@@ -338,11 +338,11 @@ export function PricingQuoteBuilder() {
             <div className="mt-6">
               <a
                 href="/about-contact#start"
-                data-simple-contact="Review My Workflow"
+                data-simple-contact="Tell Us About Your Project"
                 data-cursor="lock"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-mono text-[14px] font-medium text-bg transition-[filter] duration-300 hover:brightness-110"
               >
-                Review My Workflow
+                Tell Us About Your Project
                 <span className="transition-transform duration-300 group-hover:translate-x-1">{"->"}</span>
               </a>
             </div>
