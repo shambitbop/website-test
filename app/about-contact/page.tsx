@@ -111,8 +111,8 @@ export default function AboutContactPage() {
       <main>
         <PageHero
           kicker="ABOUT & CONTACT"
-          title="We decrypt what others cannot."
-          body="We turn manual and disconnected work into clear software, AI workflows, automation, dashboards, websites and apps. Decrypt begins by understanding the real process, then reveals the system hidden inside the complexity. Strategy, design, engineering, AI, QA and support stay connected from the first map to the working product."
+          title="We turn operational complexity into AI-enabled systems that work."
+          body="Decrypt AI helps teams replace fragmented processes with connected software, automation, dashboards, AI workflows and web products that fit the way the business actually runs. We map the real work, design the system behind it, and build the tools that make decisions, handoffs and execution clearer from day one."
           ctas={[
             { label: "Send My Project Brief", href: "#start" },
             { label: "Book a Discovery Call", href: "#start" },

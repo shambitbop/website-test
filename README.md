@@ -1,5 +1,5 @@
 # Decrypt · One Page Site
-.
+.g
 > We decode what others cannot.
 
 A single page marketing site for **Decrypt**, an AI-powered software studio that builds
