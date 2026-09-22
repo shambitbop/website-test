@@ -106,7 +106,7 @@ export async function POST(req: Request) {
   //   a) A verified sending domain in Resend (Settings -> Domains)
   //   b) Set RESEND_FROM to an email on that verified domain
   //
-  const from = process.env.RESEND_FROM?.trim() || "Decrypt AI Technologies <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM?.trim() || "form@decrypt-ai.tech";
 
   try {
     const attachments = attachment

@@ -11,7 +11,8 @@ export type HeroSceneVariant =
   | "case-studies"
   | "pricing"
   | "about"
-  | "signal";
+  | "signal"
+  | "home";
 
 const scenes: Record<
   HeroSceneVariant,
@@ -64,6 +65,12 @@ const scenes: Record<
     label: "WORKFLOW SIGNAL",
     status: "CLEAR SYSTEMS. MEASURABLE VALUE.",
     nodes: ["INPUT", "LOGIC", "ACTION", "RESULT"],
+  },
+  home: {
+    core: "SYSTEM",
+    label: "DECRYPT AI",
+    status: "AI-POWERED SOFTWARE STUDIO",
+    nodes: [],
   },
 };
 
@@ -244,6 +251,7 @@ function SceneArtwork({ variant }: { variant: HeroSceneVariant }) {
   if (variant === "case-studies") return <CaseStudiesArtwork />;
   if (variant === "pricing") return <PricingArtwork />;
   if (variant === "about") return <AboutArtwork />;
+  if (variant === "home") return <SignalArtwork scene={scenes.home} />;
   return <SignalArtwork scene={scenes.signal} />;
 }
 

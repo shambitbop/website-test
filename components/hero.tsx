@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Container } from "./primitives";
 import { DecryptText } from "./decrypt-text";
-import { RobotScene } from "./robot-scene";
+import { Hero3DScene } from "./ui/hero-3d-scene";
 
 const MICRO = [
   "AI software",
@@ -100,22 +100,11 @@ export function Hero() {
             </ul>
           </div>
 
-          {/* right column: robot panel */}
+          {/* right column: 3d scene panel */}
           <div
-            className="hero-entry hero-robot-panel relative mx-auto w-full max-w-xl lg:max-w-none"
+            className="hero-entry hero-robot-panel relative mx-auto w-full max-w-xl lg:max-w-none flex items-center justify-center"
           >
-            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-line bg-[#070710] [background-image:radial-gradient(120%_90%_at_50%_0%,#171432_0%,#070710_60%)] md:aspect-[4/5] lg:aspect-square">
-              {/* status chip */}
-              <div className="absolute left-3 top-3 z-20 inline-flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-full border border-line bg-bg/70 px-3 py-1.5 backdrop-blur sm:left-4 sm:top-4 sm:max-w-none">
-                <span className="status-dot h-2 w-2 rounded-full bg-accent" />
-                <span className="truncate font-mono text-[11px] tracking-wide text-text sm:text-[12px]">
-                  project planning online
-                </span>
-              </div>
-              {/* corner ticks */}
-              <CornerTicks />
-              <RobotScene className="absolute inset-0" />
-            </div>
+            <Hero3DScene variant="home" caption="Custom software, AI automation, and business systems." />
           </div>
         </div>
       </Container>
@@ -142,25 +131,5 @@ export function Hero() {
       </div>
 
     </section>
-  );
-}
-
-function CornerTicks() {
-  const corners = [
-    "left-3 top-3 border-l border-t",
-    "right-3 top-3 border-r border-t",
-    "left-3 bottom-3 border-l border-b",
-    "right-3 bottom-3 border-r border-b",
-  ];
-  return (
-    <>
-      {corners.map((c, i) => (
-        <span
-          key={i}
-          aria-hidden
-          className={`pointer-events-none absolute z-10 h-4 w-4 border-accent/40 ${c}`}
-        />
-      ))}
-    </>
   );
 }

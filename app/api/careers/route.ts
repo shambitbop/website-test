@@ -46,7 +46,7 @@ export async function POST(req: Request) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const from = process.env.RESEND_FROM?.trim() || "Decrypt AI Technologies <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM?.trim() || "form@decrypt-ai.tech";
 
   try {
     const { error } = await resend.emails.send({
