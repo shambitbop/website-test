@@ -17,6 +17,7 @@ export function Modal({
   headerLabel?: string;
 }) {
   const scrollYRef = useRef(0);
+  const scrollXRef = useRef(0);
   const panelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
@@ -28,20 +29,30 @@ export function Modal({
   useLayoutEffect(() => {
     if (!open) return;
     scrollYRef.current = window.scrollY;
+    scrollXRef.current = window.scrollX;
     const body = document.body;
     const root = document.documentElement;
     const previousBodyStyles = {
       overflow: body.style.overflow,
       position: body.style.position,
       top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
       width: body.style.width,
     };
-    const previousScrollBehavior = root.style.scrollBehavior;
+    const previousRootStyles = {
+      overflow: root.style.overflow,
+      scrollBehavior: root.style.scrollBehavior,
+    };
 
     body.style.overflow = "hidden";
     body.style.position = "fixed";
-    body.style.top = `-${scrollYRef.current}px`;
+    body.style.top = "0";
+    body.style.left = "0";
+    body.style.right = "0";
     body.style.width = "100%";
+    root.style.overflow = "hidden";
+    root.style.scrollBehavior = "auto";
     panelRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -77,15 +88,19 @@ export function Modal({
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      // Disable the global smooth-scroll rule while restoring the locked page.
-      // This keeps the background visually stationary during modal teardown.
-      root.style.scrollBehavior = "auto";
+      // Unlock the page and restore the previous viewport position without
+      // introducing a stale offset. This keeps the background stationary while
+      // the modal is open and avoids re-centering the dialog at the wrong part of
+      // the page when it closes.
+      root.style.overflow = previousRootStyles.overflow;
+      root.style.scrollBehavior = previousRootStyles.scrollBehavior;
       body.style.overflow = previousBodyStyles.overflow;
       body.style.position = previousBodyStyles.position;
       body.style.top = previousBodyStyles.top;
+      body.style.left = previousBodyStyles.left;
+      body.style.right = previousBodyStyles.right;
       body.style.width = previousBodyStyles.width;
-      window.scrollTo(0, scrollYRef.current);
-      root.style.scrollBehavior = previousScrollBehavior;
+      window.scrollTo({ top: scrollYRef.current, left: scrollXRef.current, behavior: "auto" });
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

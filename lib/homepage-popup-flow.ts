@@ -18,7 +18,7 @@ export function finishHomepagePopupFlow(parameter: string) {
     const root = document.documentElement;
     const previousScrollBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = "auto";
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "auto" });
     root.style.scrollBehavior = previousScrollBehavior;
   }, 0);
 }
