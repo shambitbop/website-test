@@ -67,10 +67,10 @@ const scenes: Record<
     nodes: ["INPUT", "LOGIC", "ACTION", "RESULT"],
   },
   home: {
-    core: "SYSTEM",
+    core: "DECRYPT",
     label: "DECRYPT AI",
-    status: "AI-POWERED SOFTWARE STUDIO",
-    nodes: [],
+    status: "COMPLEXITY RESOLVED INTO CLARITY",
+    nodes: ["ENCRYPT", "ANALYZE", "DECODE", "RESOLVE"],
   },
 };
 
@@ -243,6 +243,59 @@ function SignalArtwork({ scene }: { scene: (typeof scenes)["signal"] }) {
   );
 }
 
+function DecryptAIArtwork() {
+  const cipherRows = [
+    ["01001", "DECRYPT", "10110", "AI"],
+    ["█▓░▒", "NEURAL", "▒░▓█", "NET"],
+    ["XK9#7", "RESOLVE", "!@3%", "CLR"],
+    ["110010", "SYSTEM", "001101", "ON"],
+  ];
+  const lockFaces = ["DECRYPT", "AI", "DECODE", "SOLVE", "CLEAR", "SYNC"];
+
+  return (
+    <div className="hero-artwork hero-artwork-decrypt">
+      {/* Cipher stream rows — encrypted text resolving to readable */}
+      <div className="decrypt-cipher-field">
+        {cipherRows.map((row, ri) => (
+          <div key={ri} className={`decrypt-cipher-row decrypt-cipher-row-${ri + 1}`}>
+            {row.map((cell, ci) => (
+              <span key={ci} className={`decrypt-cipher-cell ${ci % 2 === 1 ? "decrypt-cipher-resolved" : "decrypt-cipher-raw"}`}>
+                {cell}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Central rotating lock / cube */}
+      <div className="decrypt-lock-wrap">
+        <div className="decrypt-lock-ring decrypt-lock-ring-outer"><span /></div>
+        <div className="decrypt-lock-ring decrypt-lock-ring-mid"><span /></div>
+        <div className="decrypt-lock-core-wrap">
+          <div className="decrypt-lock-core">
+            {lockFaces.map((face, i) => (
+              <span key={i} className={`decrypt-lock-face decrypt-lock-face-${i + 1}`}>{face}</span>
+            ))}
+          </div>
+        </div>
+        {/* Orbiting data nodes */}
+        {["AI", "ML", "NLP", "LLM"].map((label, i) => (
+          <div key={label} className={`decrypt-data-node decrypt-data-node-${i + 1}`}>
+            <i /><span>{label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Resolve indicator — bottom bar */}
+      <div className="decrypt-resolve-bar">
+        <span className="decrypt-resolve-label">DECODING</span>
+        <span className="decrypt-resolve-track"><span className="decrypt-resolve-fill" /></span>
+        <span className="decrypt-resolve-pct">█ CLEAR</span>
+      </div>
+    </div>
+  );
+}
+
 function SceneArtwork({ variant }: { variant: HeroSceneVariant }) {
   if (variant === "studio") return <StudioArtwork />;
   if (variant === "automations") return <AutomationsArtwork />;
@@ -251,7 +304,7 @@ function SceneArtwork({ variant }: { variant: HeroSceneVariant }) {
   if (variant === "case-studies") return <CaseStudiesArtwork />;
   if (variant === "pricing") return <PricingArtwork />;
   if (variant === "about") return <AboutArtwork />;
-  if (variant === "home") return <SignalArtwork scene={scenes.home} />;
+  if (variant === "home") return <DecryptAIArtwork />;
   return <SignalArtwork scene={scenes.signal} />;
 }
 

@@ -694,6 +694,261 @@ nav {
   transform-style: preserve-3d;
 }
 
+/* ── Home: Decrypt AI — cipher resolving to clarity ────────────────── */
+@keyframes decrypt-cipher-flicker {
+  0%, 100% { opacity: 0.22; letter-spacing: 0.05em; }
+  45% { opacity: 0.55; letter-spacing: 0.12em; }
+  70% { opacity: 0.15; }
+}
+@keyframes decrypt-resolved-glow {
+  0%, 100% { color: var(--accent); text-shadow: 0 0 14px color-mix(in oklab, var(--accent) 60%, transparent); }
+  50% { color: color-mix(in oklab, var(--accent) 75%, var(--text)); text-shadow: 0 0 6px color-mix(in oklab, var(--accent) 30%, transparent); }
+}
+@keyframes decrypt-lock-spin {
+  0%   { transform: rotateX(-14deg) rotateY(0deg); }
+  25%  { transform: rotateX(8deg)   rotateY(90deg); }
+  50%  { transform: rotateX(-10deg) rotateY(180deg); }
+  75%  { transform: rotateX(6deg)   rotateY(270deg); }
+  100% { transform: rotateX(-14deg) rotateY(360deg); }
+}
+@keyframes decrypt-lock-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+@keyframes decrypt-ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes decrypt-node-orbit {
+  from { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(110px) rotate(-360deg); }
+}
+@keyframes decrypt-resolve-fill {
+  0%   { width: 8%; }
+  48%  { width: 92%; }
+  52%  { width: 92%; }
+  100% { width: 8%; }
+}
+@keyframes decrypt-row-slide {
+  0%, 100% { opacity: 0; transform: translateX(-8px); }
+  20%, 80%  { opacity: 1; transform: translateX(0); }
+}
+
+/* Cipher field */
+.decrypt-cipher-field {
+  position: absolute;
+  inset: 6% 6% auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.decrypt-cipher-row {
+  display: flex;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  animation: decrypt-row-slide 6s ease-in-out infinite;
+}
+.decrypt-cipher-row-1 { animation-delay: 0s; }
+.decrypt-cipher-row-2 { animation-delay: -1.5s; }
+.decrypt-cipher-row-3 { animation-delay: -3s; }
+.decrypt-cipher-row-4 { animation-delay: -4.5s; }
+.decrypt-cipher-cell { display: inline-block; min-width: 52px; }
+.decrypt-cipher-raw {
+  color: color-mix(in oklab, var(--cipher) 55%, transparent);
+  animation: decrypt-cipher-flicker 3.2s ease-in-out infinite;
+}
+.decrypt-cipher-raw:nth-child(odd) { animation-delay: -1.1s; }
+.decrypt-cipher-resolved {
+  color: var(--accent);
+  font-weight: 600;
+  animation: decrypt-resolved-glow 4s ease-in-out infinite;
+}
+.decrypt-cipher-resolved:nth-child(even) { animation-delay: -2s; }
+
+/* Lock / cube central element */
+.decrypt-lock-wrap {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  translate: -50% -50%;
+  width: 220px;
+  height: 220px;
+}
+.decrypt-lock-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent);
+}
+.decrypt-lock-ring span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+.decrypt-lock-ring span::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent);
+}
+.decrypt-lock-ring-outer {
+  width: 220px;
+  height: 220px;
+  translate: -50% -50%;
+  animation: decrypt-ring-spin 14s linear infinite;
+}
+.decrypt-lock-ring-mid {
+  width: 166px;
+  height: 166px;
+  translate: -50% -50%;
+  border-color: color-mix(in oklab, var(--cipher) 32%, transparent);
+  animation: decrypt-ring-spin 9s linear infinite reverse;
+}
+.decrypt-lock-ring-mid span::before {
+  background: var(--cipher);
+  box-shadow: 0 0 14px var(--cipher);
+}
+.decrypt-lock-core-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  translate: -50% -50%;
+  transform-style: preserve-3d;
+  animation: decrypt-lock-float 5.5s ease-in-out infinite;
+}
+.decrypt-lock-core {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: decrypt-lock-spin 14s ease-in-out infinite;
+}
+.decrypt-lock-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in oklab, var(--accent) 50%, transparent);
+  background: linear-gradient(145deg, color-mix(in oklab, var(--accent) 14%, var(--surface)), color-mix(in oklab, var(--surface) 90%, transparent));
+  box-shadow: inset 0 0 20px color-mix(in oklab, var(--accent) 10%, transparent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  backface-visibility: hidden;
+}
+.decrypt-lock-face-1 { transform: translateZ(50px); }
+.decrypt-lock-face-2 { transform: rotateY(180deg) translateZ(50px); font-size: 13px; }
+.decrypt-lock-face-3 { transform: rotateY(90deg) translateZ(50px); }
+.decrypt-lock-face-4 { transform: rotateY(-90deg) translateZ(50px); }
+.decrypt-lock-face-5 { transform: rotateX(90deg) translateZ(50px); font-size: 9px; }
+.decrypt-lock-face-6 { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Orbiting data nodes */
+.decrypt-data-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid color-mix(in oklab, var(--accent) 24%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  padding: 5px 9px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+.decrypt-data-node i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  flex-shrink: 0;
+}
+.decrypt-data-node-1 {
+  transform-origin: -110px -110px;
+  animation: decrypt-node-orbit 12s linear infinite;
+  animation-delay: 0s;
+}
+.decrypt-data-node-2 {
+  transform-origin: -110px -110px;
+  animation: decrypt-node-orbit 12s linear infinite;
+  animation-delay: -3s;
+}
+.decrypt-data-node-3 {
+  transform-origin: -110px -110px;
+  animation: decrypt-node-orbit 12s linear infinite;
+  animation-delay: -6s;
+}
+.decrypt-data-node-4 {
+  transform-origin: -110px -110px;
+  animation: decrypt-node-orbit 12s linear infinite;
+  animation-delay: -9s;
+}
+
+/* Resolve progress bar */
+.decrypt-resolve-bar {
+  position: absolute;
+  bottom: 2%;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in oklab, var(--accent) 22%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  backdrop-filter: blur(10px);
+}
+.decrypt-resolve-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.decrypt-resolve-track {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 14%, var(--line));
+  overflow: hidden;
+}
+.decrypt-resolve-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--cipher));
+  box-shadow: 0 0 10px var(--accent);
+  animation: decrypt-resolve-fill 5.5s ease-in-out infinite;
+}
+.decrypt-resolve-pct {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
 /* Studio: scattered product surfaces assembling into one system. */
 @keyframes studio-module-assemble {
   0%, 10% { opacity: 0; transform: translate3d(var(--studio-x), var(--studio-y), 70px) rotate(var(--studio-r)); }
