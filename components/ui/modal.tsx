@@ -94,7 +94,11 @@ export function Modal({
       // the modal is open and avoids re-centering the dialog at the wrong part of
       // the page when it closes.
       root.style.overflow = previousRootStyles.overflow;
-      root.style.scrollBehavior = previousRootStyles.scrollBehavior;
+      // Keep smooth scrolling disabled until after the saved viewport has been
+      // restored. Otherwise the global `scroll-behavior: smooth` rule makes
+      // closing a modal visibly animate from the document top back to the
+      // section that was behind it.
+      root.style.scrollBehavior = "auto";
       body.style.overflow = previousBodyStyles.overflow;
       body.style.position = previousBodyStyles.position;
       body.style.top = previousBodyStyles.top;
@@ -102,6 +106,7 @@ export function Modal({
       body.style.right = previousBodyStyles.right;
       body.style.width = previousBodyStyles.width;
       window.scrollTo({ top: scrollYRef.current, left: scrollXRef.current, behavior: "auto" });
+      root.style.scrollBehavior = previousRootStyles.scrollBehavior;
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

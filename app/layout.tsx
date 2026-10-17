@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { clashDisplay } from "./fonts";
 import { AmbientBackground } from "@/components/ambient-background";
 import { StructuredData } from "@/components/structured-data";
@@ -68,6 +69,44 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        <Script id="reset-scroll-on-reload" strategy="beforeInteractive">
+          {`
+            (function () {
+              var entries = performance.getEntriesByType
+                ? performance.getEntriesByType("navigation")
+                : [];
+              var isReload = entries.length
+                ? entries[0].type === "reload"
+                : performance.navigation && performance.navigation.type === 1;
+
+              // Preserve intentional section links, but never restore an old
+              // scroll offset when a plain page URL is refreshed.
+              if (!isReload || window.location.hash) return;
+
+              var controlsRestoration = "scrollRestoration" in window.history;
+              if (controlsRestoration) window.history.scrollRestoration = "manual";
+
+              function resetScroll() {
+                var root = document.documentElement;
+                var previousBehavior = root.style.scrollBehavior;
+                root.style.scrollBehavior = "auto";
+                window.scrollTo(0, 0);
+                root.style.scrollBehavior = previousBehavior;
+              }
+
+              resetScroll();
+              document.addEventListener("DOMContentLoaded", resetScroll, { once: true });
+              window.addEventListener("load", resetScroll, { once: true });
+              window.addEventListener("pageshow", function () {
+                resetScroll();
+                window.requestAnimationFrame(function () {
+                  resetScroll();
+                  if (controlsRestoration) window.history.scrollRestoration = "auto";
+                });
+              }, { once: true });
+            })();
+          `}
+        </Script>
         <SimpleContactFormProvider>
           <AmbientBackground />
           <StructuredData />
