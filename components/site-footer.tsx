@@ -39,12 +39,12 @@ export function SiteFooter() {
           <div className="mt-12 grid gap-12 lg:grid-cols-[1.3fr_2fr]">
             <div>
               <Image
-                src="/decrypt-ai-horizontal.png"
+                src="/decrypt-ai-horizontal-transparent.png"
                 alt="Decrypt AI"
-                width={340}
-                height={100}
+                width={2171}
+                height={724}
                 sizes="272px"
-                className="h-auto w-full max-w-[17rem] mix-blend-lighten"
+                className="h-auto w-full max-w-[17rem]"
               />
               <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">
                 {BRAND.footer}
@@ -69,21 +69,33 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-              {FOOTER_COLUMNS.map((col) => (
-                <nav key={col.title} aria-label={col.title}>
-                  <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-                    <span className="text-accent">{"//"}</span> {col.title}
-                  </h3>
-                  <ul className="mt-4 space-y-2.5">
-                    {col.links.map((link) => (
-                      <li key={link.label}>
-                        <FooterLink href={link.href} label={link.label} />
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              ))}
+            <div>
+              <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+                {FOOTER_COLUMNS.map((col) => (
+                  <nav key={col.title} aria-label={col.title}>
+                    <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                      <span className="text-accent">{"//"}</span> {col.title}
+                    </h3>
+                    <ul className="mt-4 space-y-2.5">
+                      {col.links.map((link) => (
+                        <li key={link.label}>
+                          <FooterLink href={link.href} label={link.label} />
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                ))}
+              </div>
+              <div className="mt-7 flex justify-center">
+                <Image
+                  src="/decrypt-ai-badge-transparent.png"
+                  alt="Decrypt AI circular badge"
+                  width={224}
+                  height={224}
+                  sizes="(max-width: 639px) 176px, 224px"
+                  className="h-auto w-44 sm:w-52 lg:w-56"
+                />
+              </div>
             </div>
           </div>
 
