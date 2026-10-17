@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Container, Kicker, Section } from "../primitives";
@@ -123,6 +124,16 @@ export function AboutPageDetails() {
                     aria-hidden
                   />
                 </Link>
+              </Reveal>
+              <Reveal delay={0.14}>
+                <Image
+                  src="/decrypt-ai-badge.png"
+                  alt="Decrypt AI badge"
+                  width={208}
+                  height={208}
+                  sizes="(max-width: 639px) 160px, 208px"
+                  className="mt-10 h-auto w-40 mix-blend-lighten sm:w-52"
+                />
               </Reveal>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

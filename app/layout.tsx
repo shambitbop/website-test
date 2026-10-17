@@ -42,11 +42,20 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Decrypt",
     locale: "en_US",
+    images: [
+      {
+        url: "/decrypt-ai-logo.png",
+        width: 1254,
+        height: 1254,
+        alt: "Decrypt AI",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESC,
+    images: ["/decrypt-ai-logo.png"],
   },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],

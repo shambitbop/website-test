@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { LogoMark } from "./logo";
 import { FooterBackgroundGradient, TextHoverEffect } from "./ui/hover-footer";
 import { BRAND, FOOTER_COLUMNS } from "@/lib/content";
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/contact-details";
@@ -38,12 +38,14 @@ export function SiteFooter() {
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1.3fr_2fr]">
             <div>
-              <div className="flex items-center gap-3">
-                <LogoMark className="h-8 w-8" />
-                <span className="font-display text-3xl font-semibold tracking-[-0.02em] text-text">
-                  decrypt
-                </span>
-              </div>
+              <Image
+                src="/decrypt-ai-horizontal.png"
+                alt="Decrypt AI"
+                width={340}
+                height={100}
+                sizes="272px"
+                className="h-auto w-full max-w-[17rem] mix-blend-lighten"
+              />
               <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">
                 {BRAND.footer}
               </p>

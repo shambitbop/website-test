@@ -24,6 +24,7 @@ export function StructuredData() {
         "@id": "https://decrypt-ai.tech/#organization",
         name: "Decrypt AI Technologies",
         url: "https://decrypt-ai.tech",
+        logo: "https://decrypt-ai.tech/decrypt-ai-logo.png",
         description:
           "Decrypt AI Technologies is an AI software and automation company that builds custom software, AI workflow systems, dashboards, Microsoft 365 automation, websites, apps, chatbots, voice agents, QA, CI/CD and managed digital support.",
         slogan: "We decrypt what others cannot.",

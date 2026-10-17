@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { LogoMark } from "./logo";
 import { scrollPageToTop } from "./back-to-top";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "@/lib/content";
@@ -49,7 +49,17 @@ export function SiteNav() {
             scrolled ? "px-1.5" : ""
           )}
         >
-          <LogoMark className="h-7 w-7" />
+          <span className="relative h-9 w-9 shrink-0 overflow-hidden" aria-hidden="true">
+            <Image
+              src="/deviol.png"
+              alt=""
+              width={60}
+              height={60}
+              sizes="60px"
+              priority
+              className="absolute left-1/2 top-1/2 h-[60px] w-[60px] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-lighten"
+            />
+          </span>
           <span
             className={cn(
               "ml-2 font-mono text-[15px] font-medium tracking-tight text-text transition-all",
