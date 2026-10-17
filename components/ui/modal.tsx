@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useCallback, useLayoutEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
 export function Modal({
@@ -47,8 +48,8 @@ export function Modal({
 
     body.style.overflow = "hidden";
     body.style.position = "fixed";
-    body.style.top = "0";
-    body.style.left = "0";
+    body.style.top = `-${scrollYRef.current}px`;
+    body.style.left = `-${scrollXRef.current}px`;
     body.style.right = "0";
     body.style.width = "100%";
     root.style.overflow = "hidden";
@@ -122,9 +123,9 @@ export function Modal({
     [onClose]
   );
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
         <>
           {/* Backdrop - separate element, always behind the panel */}
           <div
@@ -171,6 +172,7 @@ export function Modal({
                 </div>
               </div>
           </div>
-        </>
+        </>,
+        document.body,
   );
 }

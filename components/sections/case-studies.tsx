@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Container, Kicker, Section } from "../primitives";
 import { DecryptText } from "../decrypt-text";
@@ -9,7 +9,6 @@ import { TiltCard } from "../tilt-card";
 import { Modal } from "../ui/modal";
 import { CardCarousel } from "../ui/card-carousel";
 import { CASE_STUDIES, type CaseStudy } from "@/lib/content";
-import { finishHomepagePopupFlow, getHomepagePopupTarget } from "@/lib/homepage-popup-flow";
 
 function CaseStudyCard({
   study,
@@ -159,35 +158,14 @@ function Block({ heading, body }: { heading: string; body: string }) {
 
 export function CaseStudies({ linkCardsToPage = false }: { linkCardsToPage?: boolean }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
-  const openedFromHomepageRef = useRef(false);
   const active = CASE_STUDIES.find((s) => s.slug === activeSlug) ?? null;
-
-  useEffect(() => {
-    if (linkCardsToPage) return;
-    const requestedSlug = getHomepagePopupTarget("case");
-    if (!requestedSlug || !CASE_STUDIES.some((study) => study.slug === requestedSlug)) return;
-
-    openedFromHomepageRef.current = true;
-    const timer = window.setTimeout(() => setActiveSlug(requestedSlug), 0);
-    return () => window.clearTimeout(timer);
-  }, [linkCardsToPage]);
-
-  function closeActiveCaseStudy() {
-    const shouldReturnToTop = openedFromHomepageRef.current;
-    openedFromHomepageRef.current = false;
-    setActiveSlug(null);
-    if (shouldReturnToTop) finishHomepagePopupFlow("case");
-  }
 
   const cards = CASE_STUDIES.map((study, i) => (
     <Reveal key={study.slug} delay={i * 0.05} className="h-full">
       <CaseStudyCard
         study={study}
-        href={linkCardsToPage ? `/case-studies?case=${study.slug}&source=home` : undefined}
-        onOpen={linkCardsToPage ? undefined : () => {
-          openedFromHomepageRef.current = false;
-          setActiveSlug(study.slug);
-        }}
+        href={linkCardsToPage ? "/case-studies" : undefined}
+        onOpen={linkCardsToPage ? undefined : () => setActiveSlug(study.slug)}
       />
     </Reveal>
   ));
@@ -220,7 +198,7 @@ export function CaseStudies({ linkCardsToPage = false }: { linkCardsToPage?: boo
       </Container>
 
       {!linkCardsToPage && (
-        <Modal open={!!active} onClose={closeActiveCaseStudy} labelledBy={`case-study-${active?.slug ?? ""}`} headerLabel="decrypt - case file">
+        <Modal open={!!active} onClose={() => setActiveSlug(null)} labelledBy={`case-study-${active?.slug ?? ""}`} headerLabel="decrypt - case file">
           {active && <CaseStudyModal study={active} />}
         </Modal>
       )}

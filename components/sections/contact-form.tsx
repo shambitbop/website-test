@@ -50,10 +50,13 @@ const CONTACT_STEPS = [
 export function ContactForm({
   showAboutSummary = false,
   modal = false,
+  onSubmitted,
 }: {
   showAboutSummary?: boolean;
   modal?: boolean;
+  onSubmitted?: () => void;
 }) {
+  const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -138,8 +141,26 @@ export function ContactForm({
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) {
-      const first = document.querySelector<HTMLElement>("[data-invalid='true']");
-      first?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const fieldOrder: (keyof Errors)[] = ["services", "name", "email", "details"];
+      const firstInvalidField = fieldOrder.find((field) => Boolean(e[field]));
+
+      // Wait until React has rendered the validation messages before moving the
+      // modal's scroll area. Focusing the field also makes the required action
+      // immediately clear to keyboard and screen-reader users.
+      window.requestAnimationFrame(() => {
+        if (!firstInvalidField) return;
+        const field = formRef.current?.querySelector<HTMLElement>(
+          `[data-field="${firstInvalidField}"]`,
+        );
+        if (!field) return;
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        field.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+        const focusTarget = field.matches("input, textarea, button, select")
+          ? field
+          : field.querySelector<HTMLElement>("input, textarea, button, select");
+        focusTarget?.focus({ preventScroll: true });
+      });
       return;
     }
     setStatus("sending");
@@ -181,6 +202,7 @@ export function ContactForm({
         return;
       }
       setStatus("sent");
+      onSubmitted?.();
     } catch {
       setSendError("We could not reach the email service. Please try again.");
       setStatus("error");
@@ -334,7 +356,7 @@ export function ContactForm({
               {status === "sent" ? (
                 <Confirmation />
               ) : (
-                <form onSubmit={onSubmit} noValidate className="space-y-7">
+                <form ref={formRef} onSubmit={onSubmit} noValidate className="space-y-7">
                   {/* honeypot */}
                   <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
                     <label>
@@ -349,7 +371,7 @@ export function ContactForm({
                   </div>
 
                   {/* services -> replaces the old "what do you need" chips, now priced */}
-                  <fieldset data-invalid={!!errors.services}>
+                  <fieldset data-field="services" data-invalid={!!errors.services}>
                     <legend className="mb-2 block font-mono text-[12px] uppercase tracking-[0.16em] text-muted">
                       Project type
                     </legend>
@@ -417,7 +439,7 @@ export function ContactForm({
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <div data-invalid={!!errors.name}>
+                    <div data-field="name" data-invalid={!!errors.name}>
                       <FieldLabel htmlFor="name">Your name</FieldLabel>
                       <Input
                         id="name"
@@ -430,7 +452,7 @@ export function ContactForm({
                       />
                       <FieldError>{errors.name}</FieldError>
                     </div>
-                    <div data-invalid={!!errors.email}>
+                    <div data-field="email" data-invalid={!!errors.email}>
                       <FieldLabel htmlFor="email">Work email</FieldLabel>
                       <Input
                         id="email"
@@ -471,7 +493,7 @@ export function ContactForm({
                     </div>
                   </div>
 
-                  <div data-invalid={!!errors.details}>
+                  <div data-field="details" data-invalid={!!errors.details}>
                     <FieldLabel htmlFor="details">Project description</FieldLabel>
                     <Textarea
                       id="details"
