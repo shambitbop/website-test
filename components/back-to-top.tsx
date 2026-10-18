@@ -26,7 +26,7 @@ export function BackToTop() {
           onClick={scrollPageToTop}
           aria-label="Back to top"
           title="Back to top"
-          className="group fixed bottom-5 left-5 z-40 inline-flex h-9 w-9 items-center justify-center rounded-full border border-accent/40 bg-surface/90 text-accent shadow-[0_10px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-md transition-colors hover:border-accent hover:bg-accent hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:bottom-6 sm:left-6"
+          className="group fixed bottom-5 left-5 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full border border-accent/40 bg-surface/90 text-accent shadow-[0_10px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-md transition-colors hover:border-accent hover:bg-accent hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:bottom-6 sm:left-6 sm:h-9 sm:w-9"
         >
           <ArrowUp
             size={15}

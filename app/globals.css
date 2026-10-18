@@ -1616,3 +1616,50 @@ a[href*="spline.design"] {
   content-visibility: auto;
   contain-intrinsic-size: 1px 800px;
 }
+
+@media (max-width: 767px) {
+  /*
+   * Mobile pages are tall and their sections vary substantially in height.
+   * A single intrinsic placeholder can leave blank frames while a user scrolls
+   * quickly, so phones use normal layout/paint for predictable page geometry.
+   */
+  .render-lazy {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+
+  /*
+   * Moving rails become user-controlled touch scrollers on mobile. This keeps
+   * cards readable, avoids motion under the user's finger and preserves the
+   * desktop marquee treatment at larger breakpoints.
+   */
+  .card-carousel-viewport,
+  .marquee-viewport {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .card-carousel-viewport::-webkit-scrollbar,
+  .marquee-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-carousel-track,
+  .marquee-viewport .marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  .card-carousel-copy,
+  .marquee-viewport .marquee-copy {
+    display: none;
+  }
+
+  .card-carousel-group > *,
+  .marquee-viewport .marquee-track > * {
+    scroll-snap-align: start;
+  }
+}

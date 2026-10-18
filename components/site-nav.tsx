@@ -49,17 +49,15 @@ export function SiteNav() {
             scrolled ? "px-1.5" : ""
           )}
         >
-          <span className="relative h-9 w-9 shrink-0 overflow-hidden" aria-hidden="true">
-            <Image
-              src="/deviol.png"
-              alt=""
-              width={60}
-              height={60}
-              sizes="60px"
-              priority
-              className="absolute left-1/2 top-1/2 h-[60px] w-[60px] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-lighten"
-            />
-          </span>
+          <Image
+            src="/deviol-mark-transparent.png"
+            alt=""
+            width={36}
+            height={36}
+            sizes="36px"
+            priority
+            className="h-9 w-9 shrink-0 object-contain"
+          />
           <span
             className={cn(
               "ml-2 font-mono text-[15px] font-medium tracking-tight text-text transition-all",
@@ -136,7 +134,7 @@ export function SiteNav() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
             aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line bg-bg/90 text-text transition-colors hover:border-accent/50 hover:text-accent lg:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-bg/90 text-text transition-colors hover:border-accent/50 hover:text-accent lg:hidden"
           >
             {mobileOpen ? <X size={17} aria-hidden /> : <Menu size={17} aria-hidden />}
           </button>

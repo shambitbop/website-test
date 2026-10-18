@@ -120,6 +120,7 @@ export function Hero() {
           {[...MICRO, ...MICRO].map((m, i) => (
             <span
               key={i}
+              aria-hidden={i >= MICRO.length || undefined}
               className="inline-flex items-center gap-2 px-8 font-mono text-[11px] uppercase tracking-[0.28em] text-muted"
             >
               <span className="text-accent">{"//"}</span>

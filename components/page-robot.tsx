@@ -91,7 +91,7 @@ export function PageRobot() {
       onMouseLeave={() => setHovered(false)}
       aria-hidden={!visible}
       inert={!visible}
-      className="fixed bottom-6 right-6 z-40 select-none transition-[opacity,transform] duration-200 motion-reduce:transition-none"
+      className="fixed bottom-4 right-4 z-40 select-none transition-[opacity,transform] duration-200 motion-reduce:transition-none md:bottom-6 md:right-6"
       style={{
         pointerEvents: visible ? "auto" : "none",
         opacity: visible ? 1 : 0,
@@ -103,6 +103,7 @@ export function PageRobot() {
           the hover state (the old per-element onHoverStart/End caused that). */}
       <a
         href="/about-contact#start"
+        data-simple-contact="Get a Custom Quote"
         aria-label="Get a free quote"
         style={{
           opacity: hovered ? 1 : 0,
@@ -124,38 +125,37 @@ export function PageRobot() {
         />
       </a>
 
-      {/* Robot - also a real link to the contact form, so clicking the robot itself
-          (not just the bubble) takes the user to the contact form. */}
-      <a
-        href="/about-contact#start"
-        aria-label="Get a free quote"
-        style={{ transform: hovered ? "scale(1.07)" : "scale(1)" }}
-        className="relative block cursor-pointer transition-transform duration-200 motion-reduce:transform-none motion-reduce:transition-none"
-      >
+      <div className="relative">
         {/* Dismiss */}
         <button
           type="button"
           onClick={(e) => {
-            e.preventDefault();
             e.stopPropagation();
             setDismissed(true);
           }}
           aria-label="Dismiss assistant"
-          className={`absolute -right-2 -top-2 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-line bg-surface text-muted shadow transition-all hover:border-accent/50 hover:text-text ${
-            hovered ? "opacity-100" : "opacity-0"
+          className={`absolute -right-2 -top-2 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-muted shadow transition-all hover:border-accent/50 hover:text-text md:h-6 md:w-6 ${
+            hovered ? "md:opacity-100" : "md:opacity-0"
           }`}
         >
           <X size={11} strokeWidth={2.5} aria-hidden />
         </button>
 
-        {/* SVG robot - h-24 w-20 (~96x80px) */}
-        <svg
-          viewBox="0 0 64 80"
-          className="h-24 w-20 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
+        {/* Robot - a real link to the quote flow on every screen size. */}
+        <a
+          href="/about-contact#start"
+          data-simple-contact="Get a Custom Quote"
+          aria-label="Get a free quote"
+          style={{ transform: hovered ? "scale(1.07)" : "scale(1)" }}
+          className="block cursor-pointer transition-transform duration-200 motion-reduce:transform-none motion-reduce:transition-none"
         >
+          <svg
+            viewBox="0 0 64 80"
+            className="h-20 w-16 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)] md:h-24 md:w-20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
           {/* Antenna */}
           <line x1="32" y1="4" x2="32" y2="12" stroke="var(--line)" strokeWidth="1.5" strokeLinecap="round" />
           <circle cx="32" cy="3" r="2.5" fill="var(--accent)" />
@@ -212,8 +212,9 @@ export function PageRobot() {
           {/* Vent lines */}
           <line x1="18" y1="67" x2="27" y2="67" stroke="var(--line)" strokeWidth="1" strokeLinecap="round" />
           <line x1="37" y1="67" x2="46" y2="67" stroke="var(--line)" strokeWidth="1" strokeLinecap="round" />
-        </svg>
-      </a>
+          </svg>
+        </a>
+      </div>
     </div>
   );
 }

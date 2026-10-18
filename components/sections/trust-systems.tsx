@@ -138,7 +138,9 @@ export function TrustSystems({ showGovernance = true }: { showGovernance?: boole
                 <Link
                   key={`${item.label}-${i}`}
                   href={`/industries-technology?industry=${item.slug}&source=home`}
-                  className="group flex w-[calc(100vw-3rem)] max-w-[320px] shrink-0 flex-col rounded-xl border border-line bg-surface/50 p-5 transition-colors hover:border-accent/45 sm:p-6"
+                  aria-hidden={i >= industries.length || undefined}
+                  tabIndex={i >= industries.length ? -1 : undefined}
+                  className={`group flex w-[calc(100vw-3rem)] max-w-[320px] shrink-0 flex-col rounded-xl border border-line bg-surface/50 p-5 transition-colors hover:border-accent/45 sm:p-6 ${i >= industries.length ? "marquee-copy" : ""}`}
                 >
                   <h3 className="font-mono text-[13px] text-text">{item.label}</h3>
                   <p className="mt-3 flex-1 text-[14px] leading-relaxed text-muted">{item.body}</p>

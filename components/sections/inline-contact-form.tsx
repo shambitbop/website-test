@@ -79,7 +79,7 @@ export function InlineContactForm({ showAboutSummary = false }: { showAboutSumma
                 </div>
                 <label className="block">
                   <span className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-muted">How can we help?</span>
-                  <textarea name="comments" rows={5} required placeholder="What would you like us to build, automate, review, or improve?" className="w-full resize-y rounded-xl border border-line bg-bg/65 px-4 py-3 text-[14px] text-text outline-none transition-colors placeholder:text-muted/55 focus:border-accent/65" />
+                  <textarea name="comments" rows={5} required placeholder="What would you like us to build, automate, review, or improve?" className="w-full resize-y rounded-xl border border-line bg-bg/65 px-4 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-muted/55 focus:border-accent/65 sm:text-[14px]" />
                 </label>
                 <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-line bg-bg/45 px-4 py-3 transition-colors hover:border-accent/55">
                   <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-surface text-accent"><FileUp size={17} aria-hidden /></span>
@@ -108,5 +108,5 @@ export function InlineContactForm({ showAboutSummary = false }: { showAboutSumma
 }
 
 function SimpleField({ label, name, type = "text", autoComplete, required = false }: { label: string; name: string; type?: string; autoComplete?: string; required?: boolean }) {
-  return <label className="block"><span className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{label}{required && <span className="text-accent"> *</span>}</span><input name={name} type={type} autoComplete={autoComplete} required={required} className="w-full rounded-xl border border-line bg-bg/65 px-4 py-3 text-[14px] text-text outline-none transition-colors placeholder:text-muted/55 focus:border-accent/65" /></label>;
+  return <label className="block"><span className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{label}{required && <span className="text-accent"> *</span>}</span><input name={name} type={type} autoComplete={autoComplete} required={required} className="w-full rounded-xl border border-line bg-bg/65 px-4 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-muted/55 focus:border-accent/65 sm:text-[14px]" /></label>;
 }

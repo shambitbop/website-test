@@ -58,7 +58,21 @@ export const metadata: Metadata = {
     images: ["/decrypt-ai-logo.png"],
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [
+      {
+        url: "/deviol-mark-transparent.png",
+        type: "image/png",
+        sizes: "1254x1254",
+      },
+    ],
+    shortcut: "/deviol-mark-transparent.png",
+    apple: [
+      {
+        url: "/deviol-mark-transparent.png",
+        type: "image/png",
+        sizes: "1254x1254",
+      },
+    ],
   },
 };
 

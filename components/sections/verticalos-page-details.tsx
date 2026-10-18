@@ -59,7 +59,11 @@ export function VerticalOsPageDetails() {
           <div className="marquee-viewport mt-12">
             <div className="marquee-track gap-5" style={{ ["--marquee-duration" as string]: "54s" }}>
               {[...workflowStages, ...workflowStages].map((stage, index) => (
-                <div key={`${stage.label}-${index}`} className="w-[calc(100vw-3rem)] max-w-[320px] shrink-0 rounded-xl border border-line bg-surface/60 p-5 sm:p-6">
+                <div
+                  key={`${stage.label}-${index}`}
+                  aria-hidden={index >= workflowStages.length || undefined}
+                  className={`w-[calc(100vw-3rem)] max-w-[320px] shrink-0 rounded-xl border border-line bg-surface/60 p-5 sm:p-6 ${index >= workflowStages.length ? "marquee-copy" : ""}`}
+                >
                   <span className="font-mono text-[11px] text-accent">
                     {String((index % workflowStages.length) + 1).padStart(2, "0")}
                   </span>

@@ -162,7 +162,7 @@ export function Modal({
                     onClick={onClose}
                     aria-label="Close"
                     data-cursor="lock"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface-2 text-muted transition-colors hover:border-accent/50 hover:text-text"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface-2 text-muted transition-colors hover:border-accent/50 hover:text-text sm:h-8 sm:w-8"
                   >
                     <X size={15} strokeWidth={2} aria-hidden />
                   </button>

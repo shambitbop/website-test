@@ -9,8 +9,9 @@ import {
 export function FieldLabel({
   className,
   children,
+  required = false,
   ...props
-}: LabelHTMLAttributes<HTMLLabelElement>) {
+}: LabelHTMLAttributes<HTMLLabelElement> & { required?: boolean }) {
   return (
     <label
       className={cn(
@@ -20,12 +21,24 @@ export function FieldLabel({
       {...props}
     >
       {children}
+      {required && <RequiredMark />}
     </label>
   );
 }
 
+export function RequiredMark() {
+  return (
+    <>
+      <span aria-hidden="true" className="ml-1 text-accent">
+        *
+      </span>
+      <span className="sr-only"> (required)</span>
+    </>
+  );
+}
+
 const base =
-  "w-full rounded-md border bg-surface px-4 py-3 text-[15px] text-text placeholder:text-muted/60 transition-colors outline-none focus:border-accent/60 focus:bg-surface-2";
+  "w-full rounded-md border bg-surface px-4 py-3 text-[16px] text-text placeholder:text-muted/60 transition-colors outline-none focus:border-accent/60 focus:bg-surface-2 sm:text-[15px]";
 
 export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }>(
   ({ className, invalid, ...props }, ref) => (
@@ -77,7 +90,7 @@ export function Chip({
       data-cursor="lock"
       aria-pressed={active}
       className={cn(
-        "rounded-full border px-3.5 py-2 font-mono text-[13px] transition-all duration-200",
+        "inline-flex min-h-11 items-center justify-center rounded-full border px-3.5 py-2 text-center font-mono text-[13px] leading-snug transition-all duration-200",
         active
           ? "border-accent bg-accent/10 text-accent"
           : "border-line bg-surface text-muted hover:border-muted/50 hover:text-text"

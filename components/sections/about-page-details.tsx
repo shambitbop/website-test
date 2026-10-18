@@ -81,7 +81,11 @@ export function AboutPageDetails() {
           <div className="marquee-viewport mt-12">
             <div className="marquee-track gap-4" style={{ ["--marquee-duration" as string]: "42s" }}>
               {[...capabilities, ...capabilities].map((capability, index) => (
-                <div key={`${capability}-${index}`} className="flex w-[calc(100vw-3rem)] max-w-[285px] shrink-0 items-center gap-3 rounded-xl border border-line bg-surface/55 p-5">
+                <div
+                  key={`${capability}-${index}`}
+                  aria-hidden={index >= capabilities.length || undefined}
+                  className={`flex w-[calc(100vw-3rem)] max-w-[285px] shrink-0 items-center gap-3 rounded-xl border border-line bg-surface/55 p-5 ${index >= capabilities.length ? "marquee-copy" : ""}`}
+                >
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-bg">
                     <Check size={14} strokeWidth={3} aria-hidden />
                   </span>

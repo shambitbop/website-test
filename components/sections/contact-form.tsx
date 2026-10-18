@@ -6,7 +6,7 @@ import { Container, Kicker, Section } from "../primitives";
 import { DecryptText } from "../decrypt-text";
 import { Reveal } from "../reveal";
 import { Check, FileUp, X } from "lucide-react";
-import { Chip, FieldError, FieldLabel, Input, Textarea } from "../ui/field";
+import { Chip, FieldError, FieldLabel, Input, RequiredMark, Textarea } from "../ui/field";
 import {
   ABOUT_DIFFERENTIATORS,
   BUDGET_OPTIONS,
@@ -370,10 +370,16 @@ export function ContactForm({
                     </label>
                   </div>
 
+                  <p className="font-mono text-[11px] text-muted">
+                    <span aria-hidden="true" className="text-accent">*</span>{" "}
+                    Required fields
+                  </p>
+
                   {/* services -> replaces the old "what do you need" chips, now priced */}
-                  <fieldset data-field="services" data-invalid={!!errors.services}>
+                  <fieldset data-field="services" data-invalid={!!errors.services} aria-required="true">
                     <legend className="mb-2 block font-mono text-[12px] uppercase tracking-[0.16em] text-muted">
                       Project type
+                      <RequiredMark />
                     </legend>
                     <div className="space-y-4">
                       {PRICING_GROUPS.map((group) => (
@@ -440,9 +446,10 @@ export function ContactForm({
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div data-field="name" data-invalid={!!errors.name}>
-                      <FieldLabel htmlFor="name">Your name</FieldLabel>
+                      <FieldLabel htmlFor="name" required>Your name</FieldLabel>
                       <Input
                         id="name"
+                        required
                         value={name}
                         invalid={!!errors.name}
                         onChange={(e) => setName(e.target.value)}
@@ -453,10 +460,11 @@ export function ContactForm({
                       <FieldError>{errors.name}</FieldError>
                     </div>
                     <div data-field="email" data-invalid={!!errors.email}>
-                      <FieldLabel htmlFor="email">Work email</FieldLabel>
+                      <FieldLabel htmlFor="email" required>Work email</FieldLabel>
                       <Input
                         id="email"
                         type="email"
+                        required
                         value={email}
                         invalid={!!errors.email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -494,9 +502,10 @@ export function ContactForm({
                   </div>
 
                   <div data-field="details" data-invalid={!!errors.details}>
-                    <FieldLabel htmlFor="details">Project description</FieldLabel>
+                    <FieldLabel htmlFor="details" required>Project description</FieldLabel>
                     <Textarea
                       id="details"
+                      required
                       value={details}
                       invalid={!!errors.details}
                       onChange={(e) => setDetails(e.target.value)}
@@ -597,7 +606,7 @@ export function ContactForm({
                               if (fileInputRef.current) fileInputRef.current.value = "";
                             }}
                             aria-label="Remove uploaded file"
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/50 hover:text-text"
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent/50 hover:text-text sm:h-9 sm:w-9"
                           >
                             <X size={15} aria-hidden />
                           </button>
