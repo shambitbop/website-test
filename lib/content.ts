@@ -186,7 +186,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     challenge:
       "SaaS products need a clear website, usable product interfaces, content, growth workflows, QA, deployment discipline, and product alignment.",
     delivered: [
-      "Website creation for a SaaS product presence",
       "Web app and mobile app support",
       "UI/UX support for product experience",
       "Lead generation and product marketing support",
